@@ -1,0 +1,143 @@
+{
+  "controller": {
+    "poolId": "main-pool",
+    "maxLobsters": 100,
+    "taskTimeout": 300000,
+    "heartbeatInterval": 30000,
+    "scheduling": {
+      "strategy": "hybrid",
+      "maxQueueSize": 1000,
+      "priorityLevels": 4,
+      "schedulingInterval": 5000,
+      "maxConcurrentTasks": 200
+    },
+    "loadBalancing": {
+      "algorithm": "hybrid",
+      "healthCheckInterval": 60000,
+      "failoverEnabled": true,
+      "weightFactors": {
+        "cpu_weight": 0.3,
+        "memory_weight": 0.3,
+        "capability_weight": 0.2,
+        "performance_weight": 0.2
+      }
+    },
+    "retry": {
+      "maxRetries": 3,
+      "retryDelay": 5000,
+      "backoffMultiplier": 2.0
+    }
+  },
+  "gateway": {
+    "bind": {
+      "port": 18789,
+      "host": "0.0.0.0"
+    },
+    "websocket": {
+      "pingInterval": 30000,
+      "pingTimeout": 5000,
+      "maxConnections": 500
+    },
+    "tailscale": {
+      "mode": "serve",
+      "hostname": "claw-pool-controller"
+    },
+    "tls": {
+      "enabled": true,
+      "minVersion": "1.3"
+    }
+  },
+  "webui": {
+    "enabled": true,
+    "port": 8080,
+    "host": "0.0.0.0",
+    "auth": {
+      "enabled": false,
+      "users": []
+    },
+    "cors": {
+      "enabled": true,
+      "origins": ["*"]
+    }
+  },
+  "api": {
+    "enabled": true,
+    "prefix": "/api/v1",
+    "rateLimiting": {
+      "enabled": true,
+      "requests": 100,
+      "windowMs": 900000
+    },
+    "authentication": {
+      "enabled": false,
+      "method": "token"
+    }
+  },
+  "monitoring": {
+    "metricsEnabled": true,
+    "checkInterval": 10000,
+    "alerting": {
+      "enabled": true,
+      "thresholds": {
+        "lobster_offline_minutes": 5,
+        "task_queue_size": 50,
+        "task_failure_rate": 0.2,
+        "avg_execution_time_minutes": 10
+      },
+      "webhooks": [],
+      "email": {
+        "enabled": false,
+        "smtp": {
+          "host": "",
+          "port": 587,
+          "secure": true,
+          "auth": {
+            "user": "",
+            "pass": ""
+          }
+        },
+        "from": "",
+        "to": []
+      }
+    },
+    "retention": {
+      "taskHistory": "30d",
+      "metrics": "7d",
+      "alerts": "90d"
+    }
+  },
+  "storage": {
+    "database": {
+      "registry": "~/.openclaw/pool_registry.db",
+      "tasks": "~/.openclaw/pool_tasks.db"
+    },
+    "backups": {
+      "enabled": true,
+      "interval": "24h",
+      "keep": 7
+    }
+  },
+  "logging": {
+    "level": "info",
+    "file": "~/.openclaw/logs/pool-controller.log",
+    "maxSize": "50MB",
+    "backupCount": 10,
+    "format": "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+  },
+  "features": {
+    "marketMode": false,
+    "billing": {
+      "enabled": false,
+      "currency": "USD",
+      "defaultRate": 0.1
+    },
+    "multiPool": {
+      "enabled": false,
+      "federation": []
+    },
+    "plugins": {
+      "enabled": false,
+      "directory": "~/.openclaw/pool_plugins"
+    }
+  }
+}

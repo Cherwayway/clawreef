@@ -1,0 +1,65 @@
+{
+  "agent": {
+    "displayName": "My Lobster",
+    "capabilities": [
+      "python",
+      "general",
+      "text-processing",
+      "data-analysis"
+    ],
+    "resources": {
+      "cpu": 4,
+      "memory": "8GB",
+      "disk": "500GB",
+      "platform": "auto",
+      "architecture": "auto"
+    },
+    "controllerUrl": "auto",
+    "heartbeatInterval": 30000,
+    "maxConcurrentTasks": 3,
+    "pricing": {
+      "enabled": false,
+      "hourlyRate": 0.5,
+      "currency": "USD"
+    }
+  },
+  "discovery": {
+    "methods": ["mdns", "tailscale", "manual"],
+    "timeout": 5000,
+    "retryInterval": 30000,
+    "commonAddresses": [
+      "localhost:18789",
+      "127.0.0.1:18789",
+      "pool-controller:18789",
+      "claw-pool:18789"
+    ]
+  },
+  "security": {
+    "devicePairing": true,
+    "tokenRefreshInterval": 3600000,
+    "maxRetries": 3
+  },
+  "tasks": {
+    "supportedTypes": [
+      "general",
+      "python",
+      "data-analysis",
+      "web-scraping",
+      "document-processing",
+      "code-generation",
+      "text-processing"
+    ],
+    "defaultTimeout": 300000,
+    "maxExecutionTime": 1800000,
+    "retryPolicy": {
+      "maxRetries": 2,
+      "retryDelay": 5000
+    }
+  },
+  "logging": {
+    "level": "info",
+    "file": "~/.openclaw/logs/pool-agent.log",
+    "maxSize": "10MB",
+    "backupCount": 5
+  }
+}

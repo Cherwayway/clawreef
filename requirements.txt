@@ -1,0 +1,19 @@
+# Claw Pool 项目依赖包
+
+# WebSocket 通信
+websockets>=11.0
+
+# HTTP 客户端
+aiohttp>=3.8.0
+requests>=2.25.0
+
+# 系统监控
+psutil>=5.8.0
+
+# 数据库
+# 注意：sqlite3 是 Python 标准库的一部分，无需单独安装
+
+# 可选依赖（用于增强功能）
+# numpy>=1.20.0          # 用于性能统计计算
+# matplotlib>=3.3.0      # 用于生成性能图表
+# pyyaml>=6.0            # 用于 YAML 配置文件支持
